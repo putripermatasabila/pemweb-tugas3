@@ -8,6 +8,7 @@ const products = [
 
 const productList = document.querySelector("#product-list");
 const productCount = document.querySelector("#product-count");
+const searchInput = document.querySelector("#search-input");
 
 function formatPrice(price) {
   return `Rp${Number(price).toLocaleString("id-ID")}`;
@@ -23,8 +24,13 @@ function escapeHtml(value) {
   }[character]));
 }
 
-function renderProducts(items) {
+function renderProducts(items = products) {
   productCount.textContent = `${items.length} produk`;
+
+  if (items.length === 0) {
+    productList.innerHTML = '<p class="empty-state">Produk tidak ditemukan.</p>';
+    return;
+  }
 
   productList.innerHTML = items
     .map(
@@ -42,4 +48,12 @@ function renderProducts(items) {
     .join("");
 }
 
-renderProducts(products);
+searchInput.addEventListener("input", () => {
+  const keyword = searchInput.value.trim().toLowerCase();
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(keyword)
+  );
+  renderProducts(filteredProducts);
+});
+
+renderProducts();
