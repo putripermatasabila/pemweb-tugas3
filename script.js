@@ -1,10 +1,13 @@
-const products = [
+const defaultProducts = [
   { id: crypto.randomUUID(), name: "Pulpen", price: 5000 },
   { id: crypto.randomUUID(), name: "Buku Tulis", price: 12000 },
   { id: crypto.randomUUID(), name: "Spidol", price: 8000 },
   { id: crypto.randomUUID(), name: "Penggaris", price: 6000 },
   { id: crypto.randomUUID(), name: "Penghapus", price: 3000 }
 ];
+
+const storageKey = "manajemen-produk";
+let products = readProducts();
 
 const productList = document.querySelector("#product-list");
 const productCount = document.querySelector("#product-count");
@@ -17,6 +20,25 @@ const productId = document.querySelector("#product-id");
 const productName = document.querySelector("#product-name");
 const productPrice = document.querySelector("#product-price");
 const submitButton = document.querySelector("#submit-button");
+
+function readProducts() {
+  const savedProducts = localStorage.getItem(storageKey);
+
+  if (!savedProducts) {
+    return [...defaultProducts];
+  }
+
+  try {
+    const parsedProducts = JSON.parse(savedProducts);
+    return Array.isArray(parsedProducts) ? parsedProducts : [...defaultProducts];
+  } catch {
+    return [...defaultProducts];
+  }
+}
+
+function saveProducts() {
+  localStorage.setItem(storageKey, JSON.stringify(products));
+}
 
 function formatPrice(price) {
   return `Rp${Number(price).toLocaleString("id-ID")}`;
@@ -101,6 +123,28 @@ productList.addEventListener("click", (event) => {
   if (product) {
     openModal(product);
   }
+});
+
+productForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const name = productName.value.trim();
+  const price = Number(productPrice.value);
+
+  if (!name || !Number.isFinite(price) || price < 0) {
+    return;
+  }
+
+  if (productId.value) {
+    products = products.map((product) =>
+      product.id === productId.value ? { ...product, name, price } : product
+    );
+  } else {
+    products.push({ id: crypto.randomUUID(), name, price });
+  }
+
+  saveProducts();
+  renderProducts();
+  closeModal();
 });
 
 searchInput.addEventListener("input", () => {
