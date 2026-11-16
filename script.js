@@ -97,6 +97,17 @@ function closeModal() {
   productForm.reset();
 }
 
+function deleteProduct(id) {
+  const product = products.find((item) => item.id === id);
+  if (!product || !window.confirm(`Hapus produk "${product.name}"?`)) {
+    return;
+  }
+
+  products = products.filter((item) => item.id !== id);
+  saveProducts();
+  renderProducts();
+}
+
 document.querySelector("#add-product-button").addEventListener("click", () => openModal());
 document.querySelector("#modal-close").addEventListener("click", closeModal);
 document.querySelector("#cancel-button").addEventListener("click", closeModal);
@@ -114,14 +125,17 @@ document.addEventListener("keydown", (event) => {
 });
 
 productList.addEventListener("click", (event) => {
-  const button = event.target.closest('button[data-action="edit"]');
+  const button = event.target.closest("button[data-action]");
   if (!button) {
     return;
   }
 
   const product = products.find((item) => item.id === button.dataset.id);
-  if (product) {
+  if (button.dataset.action === "edit" && product) {
     openModal(product);
+  }
+  if (button.dataset.action === "delete") {
+    deleteProduct(button.dataset.id);
   }
 });
 
