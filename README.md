@@ -79,3 +79,7 @@ npm test
 npm run typecheck
 npm run build
 ```
+
+## Bukti Pengujian Video
+
+https://youtu.be/TGSkRUkjNCM
