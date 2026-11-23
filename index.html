@@ -1,69 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manajemen Produk</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header class="site-header">
-    <div class="brand">
-      <div class="brand-mark">ITS</div>
-      <div>
-        <strong>Institut Teknologi Sepuluh Nopember</strong>
-        <span>ACADEMIC COMMUNITY</span>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="page-heading">
-      <div>
-        <p class="eyebrow">Inventaris sederhana</p>
-        <h1>Manajemen Produk</h1>
-        <p class="subtitle">Kelola daftar produk dan harga dalam satu tempat.</p>
-      </div>
-      <button class="button button-primary" id="add-product-button" type="button">
-        <span aria-hidden="true">+</span> Tambah Produk
-      </button>
-    </section>
-
-    <section class="toolbar" aria-label="Pencarian produk">
-      <label class="search-box">
-        <span aria-hidden="true">⌕</span>
-        <input id="search-input" type="search" placeholder="Cari nama produk..." autocomplete="off">
-      </label>
-      <span class="product-count" id="product-count">0 produk</span>
-    </section>
-
-    <section class="product-grid" id="product-list" aria-live="polite"></section>
-  </main>
-
-  <footer class="site-footer">
-    <span>© 2024 Institut Teknologi Sepuluh Nopember</span>
-    <span>its.ac.id</span>
-  </footer>
-
-  <div class="modal-backdrop" id="modal-backdrop" hidden>
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <button class="modal-close" id="modal-close" type="button" aria-label="Tutup">×</button>
-      <h2 id="modal-title">Tambah Produk</h2>
-      <p class="modal-description" id="modal-description">Masukkan informasi produk yang baru.</p>
-      <form id="product-form">
-        <input id="product-id" type="hidden">
-        <label for="product-name">Nama Produk</label>
-        <input id="product-name" type="text" placeholder="Contoh: Pulpen" required maxlength="50">
-        <label for="product-price">Harga (Rp)</label>
-        <input id="product-price" type="number" placeholder="Contoh: 5000" min="0" required>
-        <div class="modal-actions">
-          <button class="button button-secondary" id="cancel-button" type="button">Batal</button>
-          <button class="button button-primary" id="submit-button" type="submit">Simpan Produk</button>
-        </div>
-      </form>
-    </section>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#f8fafc" />
+        <link rel="icon" href="data:," />
+        <meta
+            name="description"
+            content="Aplikasi manajemen produk sederhana untuk pembelajaran React, Atomic Design, dan React Router."
+        />
+        <title>Manajemen Produk</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/app/entry.tsx"></script>
+    </body>
 </html>
